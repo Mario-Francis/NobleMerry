@@ -1,0 +1,164 @@
+:root{
+    --gold: #BD9B64;
+    --lgold: #aa8e61;
+}
+
+.bg-gold{
+ background-color:var(--gold) !important;
+ color:#fff;
+}
+
+.text-gold{
+    color: var(--gold) !important;
+}
+
+.btn-gold{
+    border: 1px solid var(--gold) !important;
+    background-color: var(--gold) !important;
+    color: #fff !important;
+}
+.btn-gold:hover, .btn-gold:active{
+    border: 1px solid var(--lgold) !important;
+    background-color: var(--lgold) !important;
+}
+
+.hover-light-btn{
+    border: 1px solid var(--gold) !important;
+    background-color: var(--gold) !important;
+    color: #fff !important;
+}
+.hover-light-btn:hover, .btn-gold:active{
+    border: 1px solid var(--lgold) !important;
+    background-color: #fff !important;
+    color: var(--gold) !important;
+}
+/* .hover-gold-btn{
+    border: 1px solid var(--gold) !important;
+    background-color: var(--gold) !important;
+    color: #fff !important;
+} */
+.hover-gold-btn:hover, .btn-gold:active{
+    border: 1px solid var(--lgold) !important;
+    background-color: var(--lgold) !important;
+}
+.main-nav nav .navbar-nav .nav-item a.active {
+    color: var(--gold);
+}
+.main-nav nav .navbar-nav .nav-item a:hover {
+    color: var(--gold);
+}
+.section-title span::before,
+.about-area-content span::before {
+ background-color: var(--gold) !important;
+}
+.single-fun-fact::before {
+background-color: var(--gold);
+}
+.single-fun-fact:hover {
+    border: 1px solid var(--gold);
+    color: #fff !important;
+}
+.single-fun-fact:hover .icon i{
+    color: #fff !important;
+}
+
+.single-fun-fact .icon i{
+    color: var(--gold) !important;
+}
+.about-list-tab .tabs li.current a {
+    color: #fff;
+    background-color: var(--gold);
+}
+.single-causes .image .icon{
+    color: var(--gold);
+}
+.single-causes:hover .image .icon {
+    background-color: var(--gold);
+    color: #fff !important;
+}
+.donate-list-tab .tab_content .tabs_item .donate-form .form-group .form-control {
+ border: 1px solid var(--gold);
+}
+.faq-accordion .accordion .accordion-item {
+border-left: 2px solid var(--gold);
+}
+.faq-accordion .accordion .accordion-title.active i {
+background-color: var(--gold);
+}
+.single-footer-widget .footer-contact-info i {
+color: var(--gold);
+}
+.single-footer-widget h3::before {
+background-color: var(--gold);
+}
+.single-footer-widget .quick-links li:hover i,
+.single-footer-widget .quick-links li:hover a {
+    color: var(--gold);
+}
+.footer-bottom-social li a:hover {
+    color: #fff;
+    background-color: var(--gold);
+}
+.go-top {
+background-color: var(--gold);
+}
+.home-slider.owl-theme .owl-nav [class*="owl-"]:hover{
+    color: var(--gold);
+}
+.mobile-nav .logo{
+    top:11px;
+}
+.mean-container .mean-bar {
+background-color: var(--gold);
+}
+.text-shadow-dark{
+    text-shadow: 2px 2px 4px #444;
+}
+.home-slider .home-item.item-bg1 {
+    background: linear-gradient(140deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('../img/custom/img1.jpg') !important;
+    background-position: center !important;
+background-repeat: no-repeat !important;
+background-size: cover !important;
+}
+.home-slider .home-item.item-bg2 {
+    background: linear-gradient(140deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('../img/custom/img2.jpg') !important;
+    background-position: center !important;
+background-repeat: no-repeat !important;
+background-size: cover !important;
+}
+.page-title-area {
+    padding-top: 170px;
+    padding-bottom: 80px;
+    background: linear-gradient(140deg, rgba(0, 0, 0, .8), rgba(0, 0, 0, .6)), url('../img/testimonials-bg.jpg');
+}
+
+label{
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+::placeholder {
+    color: #aaa !important;
+  }
+
+  input,  textarea, select{
+      border-radius: 0 !important;
+      color: #777 !important;
+      font-size: 14px !important;
+  }
+
+  input:focus,  textarea:focus, select:focus{
+      color: #444 !important;
+  }
+  .alert ul,.alert p{
+      font-size: 14px;
+      color: var(--danger);
+  }
+  .alert p{
+      margin: 0 !important;
+  }
+
+  .alert .close{
+      background-color: transparent;
+      border:0;
+      color:#777;
+  }
