@@ -1,14 +1,17 @@
 ﻿:root {
-  --r: #666fb7;
+  /* --r: #666fb7;
   --a: #05a7ea;
   --c: #f54977;
   --e: #f6ac68;
   --i: #fdc848;
-  --t: #07c58e;
+  --t: #07c58e; */
   --blue: #00678c;
   --lblue: #0085b5;
   --gold: #bd9b64;
   --lgold: #aa8e61;
+  --dgold: #705830;
+  --dblue:#254D70;
+  --lgold2:#FFDBA1;
 }
 
 p {
@@ -320,6 +323,18 @@ label {
 
 .bg-gold {
   background-color: var(--gold) !important;
+  color: #fff;
+}
+.bg-dgold {
+  background-color: var(--dgold) !important;
+  color: #fff;
+}
+.bg-dblue {
+  background-color: var(--dblue) !important;
+  color: #fff;
+}
+.bg-lgold2 {
+  background-color: var(--lgold2) !important;
   color: #fff;
 }
 

@@ -15,7 +15,7 @@
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="<?= base_url('d_assets/lib/Zebra_datepicker/css/bootstrap/zebra_datepicker.css'); ?>" rel="stylesheet" />
     <link href="<?= base_url('d_assets/lib/selectize.js/css/selectize.bootstrap4.css'); ?>" rel="stylesheet" />
-    
+
     <?= $this->renderSection('css') ?>
 
     <link href="<?= base_url('d_assets/css/fonts.css'); ?>" rel="stylesheet" />
@@ -52,19 +52,21 @@
                     <div class="f14 py-2" style="max-width:250px;">
                         <div class="float-left mt-n1 px-2">
                             <p class="font-weight-bold mt-0">
-                                Hi, <?=  $session->get('identity')['first_name'] ?>
+                                Hi, <?= $session->get('identity')['first_name'] ?>
                             </p>
-                            <p class="mt-n1 small text-right"><?= $session->get('identity')['role_id']==1?'Administrator':'Investor'  ?></p>
+                            <p class="mt-n1 small text-right"><?= $session->get('identity')['role_id'] == 1 ? 'Administrator' : 'Investor'  ?></p>
                         </div>
                         <div class="p-2 rounded-circle bg-gold float-left mt-n2 d-none d-sm-inline-block"><?= $session->get('identity')['initial'] ?></div>
                         <div class="h-50 pl-3"><i class="fa fa-caret-down pl-1 mt-1"></i></div>
                     </div>
                 </a>
 
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-right f14" aria-labelledby="userDropdown">
                     <!-- <a class="dropdown-item" asp-controller="Logs" asp-action="ActivityLogs">Activity Logs</a>
                     <a class="dropdown-item" asp-controller="Logs" asp-action="ErrorLogs">Error Logs</a>
-                    <div class="dropdown-divider"></div> -->
+                     -->
+                     <a class="dropdown-item" href="<?= base_url('investor/profile') ?>">My Profile</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">Logout</a>
                 </div>
             </li>
@@ -86,6 +88,9 @@
                         <a class="nav-link" href="#">
                             <i class="fas fa-tachometer-alt"></i> &nbsp; Dashboard
                         </a>
+                        <?php if (isset($session->get('identity')['reg_completed']) && $session->get('identity')['reg_completed']): ?>
+
+                        <?php endif ?>
                         <!-- <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 
                             <i class='fa fa-users'></i> &nbsp; Employees

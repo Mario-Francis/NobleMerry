@@ -51,15 +51,41 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-        $this->user_model = Services::user_model();
-        $this->investor_model = Services::investor_model();
-        $this->settings_model = Services::settings_model();
-        $this->role_model = Services::role_model();
         $this->account_model = Services::account_model();
+        $this->account_ownership_change_model = Services::account_ownership_change_model();
+        $this->bank_model = Services::bank_model();
+        $this->fee_model = Services::fee_model();
+        $this->investor_bank_detail_model = Services::investor_bank_detail_model();
+        $this->investor_model = Services::investor_model();
+        $this->investor_nok_model = Services::investor_nok_model();
         $this->investor_payment_model = Services::investor_payment_model();
+        $this->mail_model = Services::mail_model();
+        $this->payment_log_model = Services::payment_log_model();
+        $this->privilege_model = Services::privilege_model();
+        $this->role_model = Services::role_model();
+        $this->role_privilege_model = Services::role_privilege_model();
+        $this->settings_model = Services::settings_model();
+        $this->user_model = Services::user_model();
+
         $this->session = session();
         // services
         $this->mail_service = Services::mail_service();
+        $this->payments_service = Services::payments_service();
+    }
+
+    private function add_reg_status_to_session()
+    {
+        if ($this->session->has('identity')) {
+            if (isset($this->session->get('identity')['investor_id'])) {
+                $reg_fee = $this->fee_model->where('code', FEE_REG)->first();
+
+                $reg_payment = $this->investor_payment_model->where([
+                    'investor_id' => $this->session->get('identity')['investor_id'],
+                    'fee_id' => $reg_fee['id']
+                ])->first();
+                $_SESSION['identity']['reg_completed'] = $reg_payment['status'] == PAY_STATUS_PAID;
+            }
+        }
     }
 
     public function generate_token($user_id)
@@ -73,18 +99,18 @@ class BaseController extends Controller
     public function token_valid($token)
     {
         // try {
-            $encrypter = \Config\Services::encrypter();
-            $plain_text = $encrypter->decrypt(hex2bin($token));
-            $arr = explode('-', $plain_text);
-            //echo $token;
-            if (count($arr) != 4) {
-                return false;
-            } else {
-                $gen_time = (int)$arr[2];
-                $exp_time = (((int)getenv('TOKEN_EXPIRY_PERIOD')) * 24 * 60 * 60) + $gen_time;
+        $encrypter = \Config\Services::encrypter();
+        $plain_text = $encrypter->decrypt(hex2bin($token));
+        $arr = explode('-', $plain_text);
+        //echo $token;
+        if (count($arr) != 4) {
+            return false;
+        } else {
+            $gen_time = (int)$arr[2];
+            $exp_time = (((int)getenv('TOKEN_EXPIRY_PERIOD')) * 24 * 60 * 60) + $gen_time;
 
-                return time() < $exp_time;
-            }
+            return time() < $exp_time;
+        }
         // } catch (\Exception $ex) {
         //     return false;
         // }

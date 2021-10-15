@@ -82,7 +82,7 @@ $(() => {
                         }
                         eItems += '</ul>';
                     }
-                    notify(res.message + eItems, 'danger', "Validation Error", 30000);
+                    notify(res.message + eItems, 'danger', "Validation Error");
                 } else if (req.status == 500) {
                     notify(res.message, 'danger');
                     console.log(res.errorDetail)

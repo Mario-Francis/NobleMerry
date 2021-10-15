@@ -12,7 +12,7 @@ class PaymentLogModel extends BaseModel
         $this->returnType = 'array';
         $this->allowedFields = [
             'investor_payment_id', 'amount', 'paid_by_id', 'transaction_ref ',
-            'paid_date', 'status', 'created_by_id', 'updated_by_id'
+            'paid_date', 'status', 'created_by_id', 'updated_by_id', 'batch_payment_id'
         ];
     }
 }

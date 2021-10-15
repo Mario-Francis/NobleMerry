@@ -55,3 +55,8 @@ $routes->post('/auth/api-login', 'Home::api_login');
 $routes->get('/auth/login', 'Home::login');
 $routes->get('/auth/register', 'Home::register');
 $routes->get('/auth/logout', 'Home::logout');
+$routes->get('/auth/verify-email', 'Home::verify_email');
+
+$routes->post('/payments/api-reg-payment-by-transfer', 'Payments::api_reg_payment_by_transfer');
+
+$routes->get('/investor/profile', 'Investors::profile');

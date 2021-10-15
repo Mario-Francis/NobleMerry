@@ -2,10 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\AccountModel;
 use CodeIgniter\I18n\Time;
-
-use function PHPUnit\Framework\isEmpty;
 
 class Home extends BaseController
 {
@@ -134,7 +131,9 @@ class Home extends BaseController
                         'created_by_id' => $user_id,
                         'updated_by_id' => $user_id
                     ];
-                    $this->investor_model->insert($investor_data);
+                    $investor_id = $this->investor_model->insert($investor_data);
+                    // insert regisration payment info
+                    $this->payments_service->add_investor_reg_payment($user_id, $investor_id);
 
                     // schedule email verification mail
                     $this->send_email_verification_mail(
@@ -213,41 +212,16 @@ class Home extends BaseController
                                 'initial'=>$user['first_name'][0] . $user['last_name'][0] ,
                                 'name' => $user['first_name'] . ' ' . $user['last_name'],
                                 'role_id' => $user['role_id'],
-                                'role' => $this->role_model->find($user['role_id'])['name'],
-                                //'photo_path' => $personal_data == null ? 'assets/img/admin_avatar.jpg' : $personal_data['photo_path'],
-                                
-                                // 'investor_id' => $investor_data['id'],
-                                // 'reg_code' => $investor_data['reg_code'],
-                                // 'has_account' => $this->account_model->where(['investor_id' => $investor_data['id']])->first() != null,
+                                'role' => $this->role_model->find($user['role_id'])['name']
                             ]);
-                            //$this->session->sess_expiration = '1800'; // expires in 10 minutes
+
                             if($investor_data != null){
                                 $_SESSION['identity']['investor_id']=$investor_data['id'];
                                 $_SESSION['identity']['reg_code']=$investor_data['reg_code'];
-
-                                $account = $this->account_model->where(['investor_id' => $investor_data['id']])->first();
-
-                                $_SESSION['identity']['has_account']=$account != null;
-                                $registration_confirmed = false;
-
-                                if($account != null){
-                                    $payment = $this->investor_payment_model->where(
-                                        [
-                                            'investor_id'=>$investor_data['id'],
-                                            'account_id'=>$account['id'],
-                                            'fee_id'=>1
-                                        ]
-                                    )->first();
-                                    if(!(($payment['payment_method']=='GATEWAY' || ($payment['payment_method']=='TRANSFER' && $payment['reviewed_by_id']!=null)) && $payment['status']=='PAID')){
-                                        $registration_confirmed=false;
-                                    }
-                                }
-                                $_SESSION['identity']['registration_confirmed'] =$registration_confirmed;
                             }
 
                             $response['success'] = true;
                             $response['message'] = 'You\'ve logged in successfully.';
-                            //$response['url'] = $this->get_user_dashboard($user);
                         }
                     }
                 }

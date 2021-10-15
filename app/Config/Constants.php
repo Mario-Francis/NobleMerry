@@ -77,3 +77,25 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+//=============== custom ====================
+defined('FEE_REG')      || define('FEE_REG', 'REG_FEE');
+defined('FEE_CONTR')      || define('FEE_CONTR', 'CONTR_FEE');
+
+defined('PAY_METHOD_TRANSFER')      || define('PAY_METHOD_TRANSFER', 'TRANSFER');
+defined('PAY_METHOD_GATEWAY')      || define('PAY_METHOD_GATEWAY', 'GATEWAY');
+
+defined('PAY_STATUS_UNPAID')      || define('PAY_STATUS_UNPAID', 'UNPAID');
+defined('PAY_STATUS_PENDING_CONFIRMATION')      || define('PAY_STATUS_PENDING_CONFIRMATION', 'PENDING_CONFIRMATION');
+defined('PAY_STATUS_NOT_RECEIVED')      || define('PAY_STATUS_NOT_RECEIVED', 'NOT_RECEIVED');
+defined('PAY_STATUS_PAID')      || define('PAY_STATUS_PAID', 'PAID');
+
+defined('PAY_LOG_PENDING')      || define('PAY_LOG_PENDING', 'PENDING');
+defined('PAY_LOG_SUCCESSFUL')      || define('PAY_LOG_SUCCESSFUL', 'SUCCESSFUL');
+defined('PAY_LOG_FAILED')      || define('PAY_LOG_FAILED', 'FAILED');
+
+defined('PAY_REVIEW_ACTION_CONFIRM')      || define('PAY_REVIEW_ACTION_CONFIRM', 'CONFIRM');
+defined('PAY_REVIEW_ACTION_DECLINE')      || define('PAY_REVIEW_ACTION_DECLINE', 'DECLINE');
+
+defined('PAY_MODE_SINGLE')      || define('PAY_MODE_SINGLE', 'SINGLE');
+defined('PAY_MODE_BATCH')      || define('PAY_MODE_BATCH', 'BATCH');
