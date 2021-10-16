@@ -66,6 +66,7 @@ class BaseController extends Controller
         $this->role_privilege_model = Services::role_privilege_model();
         $this->settings_model = Services::settings_model();
         $this->user_model = Services::user_model();
+        $this->relationship_model = Services::relationship_model();
 
         $this->session = session();
         // services

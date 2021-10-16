@@ -41,6 +41,8 @@ class MailService{
         $this->mail_model->insert($email_data);
     }
 
+    // schedule mail to notify admin of pending single transfer payment confirmation
+
     private function send_mail($_email, $subject, $html_message)
     {
         $email = \Config\Services::email();

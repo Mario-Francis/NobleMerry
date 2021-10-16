@@ -375,6 +375,14 @@ label {
   background-color: var(--lgold) !important;
 }
 
+.chosen-single {
+  padding: 6px 12px !important;
+  height: 35px !important;
+  background: linear-gradient(#fff 20%,#f6f6f6 50%,#eee 52%,#f4f4f4 100%);
+  background: linear-gradient(#fff 20%, #fff 50%, #fff 52%, #fff 100%) !important;
+  border: 1px solid #ced4da !important;
+}
+
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
 }

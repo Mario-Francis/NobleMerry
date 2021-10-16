@@ -33,7 +33,7 @@ function customize_dropdowns(elem) {
             no_results_text: "No match  found for: ",
             width: '100%'
         });
-        $('.chosen-single b').attr('style', 'background-image:url(' + $base + 'assets/img/caret.png' + ') !important;background-repeat:no-repeat !important;background-position:right !important;background-size:18px 18px !important;opacity:.7');
+        $('.chosen-single b').attr('style', 'background-image:url(' + $base + '/assets/img/caret.png' + ') !important;background-repeat:no-repeat !important;background-position:right !important;background-size:18px 18px !important;opacity:.7');
     }
 }
 

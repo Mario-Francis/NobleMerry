@@ -10,8 +10,8 @@
 <div class="row">
     <div class="col-lg-8 col-md-10 col-12">
         <div class="card shadow-sm">
-            <form>
-                <fieldset>
+            <form id="profileForm">
+                <fieldset id="fieldset">
                     <div class="card-body">
                         <h6>Next of Kin Details</h6>
                         <hr class="mt-2" />
@@ -47,7 +47,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="relationship" class="f14">* Relationship</label>
-                                    <select id="relationship" class="form-control custom-select" required>
+                                    <input type="text" id="relationship" class="form-control" required placeholder="Relationship with Next of Kin" />
+                                    <!-- <select id="relationship" class="form-control custom-select" required>
                                         <option value="">- Choose relationship -</option>
                                         <option value="Father">Father</option>
                                         <option value="Mother">Mother</option>
@@ -55,7 +56,7 @@
                                         <option value="Sister">Sister</option>
                                         <option value="Uncle">Uncle</option>
                                         <option value="Aunt">Aunt</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -85,7 +86,10 @@
                                     <label for="bank" class="f14">* Bank</label>
                                     <select id="bank" class="form-control custom-select" required>
                                         <option value="">- Choose bank -</option>
-                                        <option value="">Access Bank</option>
+                                        <?php foreach($banks as $b): ?>
+                                            <option value="<?= $b['id'] ?>"><?= $b['name'] ?></option>
+                                        <?php endforeach ?>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -129,6 +133,7 @@
 
 <?= $this->section('css') ?>
 <!-- <link href="~/lib/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" /> -->
+<link href="<?= base_url('d_assets/lib/chosen_v1.8.7/chosen.min.css') ?>" rel="stylesheet" />
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
@@ -136,5 +141,6 @@
 <script src="~/lib/chartjs-plugin-datalabels/chartjs-plugin-datalabels.js"></script>
 <script src="~/lib/datatables.net/jquery.dataTables.js"></script>
 <script src="~/lib/datatables.net-bs4/js/dataTables.bootstrap4.js"></script> -->
+<script src="<?= base_url('d_assets/lib/chosen_v1.8.7/chosen.jquery.min.js') ?>"></script>
 <script src="<?= base_url('d_assets/js/complete_profile.js') ?>"></script>
 <?= $this->endSection() ?>

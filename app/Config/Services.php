@@ -15,6 +15,7 @@ use App\Models\InvestorPaymentModel;
 use App\Models\MailModel;
 use App\Models\PaymentLogModel;
 use App\Models\PrivilegeModel;
+use App\Models\RelationshipModel;
 use App\Models\RoleModel;
 use App\Models\RolePrivilegeModel;
 use App\Models\SettingsModel;
@@ -181,6 +182,15 @@ class Services extends BaseService
           }
 
           return new RolePrivilegeModel();
+    }
+
+    public static function relationship_model($getShared = true)
+     {
+         if ($getShared) {
+             return static::getSharedInstance('relationship_model');
+          }
+
+          return new RelationshipModel();
     }
 
     // ================== Services ===================

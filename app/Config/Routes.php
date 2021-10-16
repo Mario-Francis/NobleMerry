@@ -60,3 +60,7 @@ $routes->get('/auth/verify-email', 'Home::verify_email');
 $routes->post('/payments/api-reg-payment-by-transfer', 'Payments::api_reg_payment_by_transfer');
 
 $routes->get('/investor/profile', 'Investors::profile');
+$routes->post('/investor/api-complete-profile', 'Investors::api_complete_profile');
+$routes->post('/investor/api-update-profile', 'Investors::api_update_profile');
+$routes->post('/investor/api-update-nok', 'Investors::api_update_nok');
+$routes->post('/investor/api-update-bank-details', 'Investors::api_update_bank_details');

@@ -19,33 +19,33 @@ class Dashboard extends BaseController
     }
 
     //=================API Functions=====================
-    public function api_registration_payment_by_transfer()
-    {
-        $user_id = $this->session->get('identity')['id'];
-        try {
-            $response = [
-                'success' => false,
-                'message' => null,
-                'error_list' => null
-            ];
+    // public function api_registration_payment_by_transfer()
+    // {
+    //     $user_id = $this->session->get('identity')['id'];
+    //     try {
+    //         $response = [
+    //             'success' => false,
+    //             'message' => null,
+    //             'error_list' => null
+    //         ];
 
-            // create entry for registration fee leeaving account_id null and reviewed_by_id null
-            // once registration payment is confirmed by admin, create account and investor pending payments
+    //         // create entry for registration fee leeaving account_id null and reviewed_by_id null
+    //         // once registration payment is confirmed by admin, create account and investor pending payments
 
-            return $this->response->setStatusCode(
-                $response['success'] == true ? 200 : 400
-            )->setJSON($response);
-        } catch (\Exception $ex) {
-            $err = $ex->getMessage();
-            log_message('error', $err);
-            return $this->response->setStatusCode(500)->setJSON(
-                [
-                    'success' => false,
-                    'message' => $err
-                ]
-            );
-        }
-    }
+    //         return $this->response->setStatusCode(
+    //             $response['success'] == true ? 200 : 400
+    //         )->setJSON($response);
+    //     } catch (\Exception $ex) {
+    //         $err = $ex->getMessage();
+    //         log_message('error', $err);
+    //         return $this->response->setStatusCode(500)->setJSON(
+    //             [
+    //                 'success' => false,
+    //                 'message' => $err
+    //             ]
+    //         );
+    //     }
+    // }
 
 
     // ================private functions===========

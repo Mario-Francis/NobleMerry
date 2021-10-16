@@ -35,6 +35,8 @@ class Payments extends BaseController
             $response['success'] = true;
             $response['message'] = 'Payment status updated successfully. Now pending confirmation.';
 
+            // notify admin of pending transfer payment confirmation
+
             return $this->response->setStatusCode(
                 $response['success'] ? 200 : 400
             )->setJSON($response);

@@ -207,6 +207,7 @@ class Home extends BaseController
                             $investor_data = $this->investor_model->where(['user_id' => $user['id']])->first();
                             $this->session->set('identity', [
                                 'id' => $user['id'],
+                                'email' => $user['email'],
                                 'last_name' => $user['last_name'],
                                 'first_name' => $user['first_name'],
                                 'initial'=>$user['first_name'][0] . $user['last_name'][0] ,
