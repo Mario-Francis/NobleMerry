@@ -26,8 +26,22 @@ class Investors extends BaseController
             return redirect()->to('auth/login');
         }
 
-        $data['title'] = 'Profile';
+        $identity = $this->session->get('identity');
+        $user = $this->user_model->find($identity['id']);
+        $data['investor'] = $this->investor_model->find($identity['investor_id']);
+        $data['nok'] = $this->investor_nok_model->where('investor_id', $identity['investor_id'])->first();
+        $data['bank_detail'] = $this->investor_bank_detail_model->where('investor_id', $identity['investor_id'])->first();
+        $data['bank_detail']['bank_name'] = $this->bank_model->find($data['bank_detail']['bank_id'])['name'];
+        $data['user'] = [
+            'first_name'=>$user['first_name'],
+            'other_name'=>$user['other_name'],
+            'last_name'=>$user['last_name'],
+            'gender'=>$user['gender'],
+            'phone_number'=>$user['phone_number']
+        ];
+        $data['banks']=$this->bank_model->findAll();
 
+        $data['title'] = 'Profile';
         $this->view('profile', $data);
     }
 
@@ -36,6 +50,12 @@ class Investors extends BaseController
     {
         if (!$this->session->has('identity')) {
             return redirect()->to('auth/login');
+        }
+        $investor_id = $this->session->get('identity')['investor_id'];
+        $nok_details = $this->investor_nok_model->where('investor_id', $investor_id)->first();
+        $bank_details = $this->investor_bank_detail_model->where('investor_id', $investor_id)->first();
+        if ($nok_details != null && $bank_details  != null) {
+            return redirect()->to('investor/profile');
         }
 
         $data['title'] = 'Complete Profile';
@@ -153,16 +173,24 @@ class Investors extends BaseController
                     'gender'  => $this->request->getJsonVar('gender'),
                     'email'  => $this->request->getJsonVar('email'),
                     'phone_number'  => $this->request->getJsonVar('phone_number'),
-                    'updated_by_id'=>$identity['id']
+                    'updated_by_id' => $identity['id']
                 ];
 
                 $investor_data = [
                     'settlement_method' => $this->request->getJsonVar('settlement'),
-                    'updated_by_id'=>$identity['id']
+                    'updated_by_id' => $identity['id']
                 ];
 
                 $this->user_model->update($identity['id'], $user_data); // update user data
                 $this->investor_model->update($identity['id'], $investor_data); // update investor data
+
+                // update session
+                $_SESSION['identity']['email'] = $user_data['email'];
+                $_SESSION['identity']['first_name'] = $user_data['first_name'];
+                $_SESSION['identity']['last_name'] = $user_data['last_name'];
+                $_SESSION['identity']['initial'] = $user_data['first_name'][0] . $user_data['last_name'][0];
+                $_SESSION['identity']['name'] = $user_data['first_name'] . ' ' . $user_data['last_name'];
+
 
                 return $this->response->setStatusCode(200)->setJSON(
                     [
@@ -215,7 +243,7 @@ class Investors extends BaseController
                     'email'  => $this->request->getJsonVar('email'),
                     'phone_number'  => $this->request->getJsonVar('phone_number'),
                     'relationship'  => $this->request->getJsonVar('relationship'),
-                    'updated_by_id'=>$identity['id']
+                    'updated_by_id' => $identity['id']
                 ];
 
                 $this->investor_nok_model->update($nok_id, $nok_data); // update nok data
@@ -263,7 +291,7 @@ class Investors extends BaseController
                     'account_type'  => $this->request->getJsonVar('account_type'),
                     'account_name'  => $this->request->getJsonVar('account_name'),
                     'account_number'  => $this->request->getJsonVar('account_number'),
-                    'updated_by_id'=>$identity['id']
+                    'updated_by_id' => $identity['id']
                 ];
 
                 $this->investor_bank_detail_model->update($bank_detail_id, $bank_data); // update bank data
@@ -275,6 +303,92 @@ class Investors extends BaseController
                     ]
                 );
             }
+        } catch (\Exception $ex) {
+            $err = $ex->getMessage();
+            log_message('error', $err);
+            return $this->response->setStatusCode(500)->setJSON(
+                [
+                    'success' => false,
+                    'message' => $err
+                ]
+            );
+        }
+    }
+
+    public function api_get_profile()
+    {
+        $identity = $this->session->get('identity');
+        try {
+            $user = $this->user_model->find($identity['id']);
+            $data['investor'] = $this->investor_model->find($identity['investor_id']);
+            // $data['nok'] = $this->investor_nok_model->where('investor_id', $identity['investor_id'])->first();
+            // $data['bank_detail'] = $this->investor_bank_detail_model->where('investor_id', $identity['investor_id'])->first();
+
+            $data['user'] = [
+                'first_name'=>$user['first_name'],
+                'other_name'=>$user['other_name'],
+                'last_name'=>$user['last_name'],
+                'gender'=>$user['gender'],
+                'phone_number'=>$user['phone_number'],
+                'email'=>$user['email']
+            ];
+
+            return $this->response->setStatusCode(200)->setJSON(
+                [
+                    'success' => true,
+                    'message' => 'Success',
+                    'data' => $data
+                ]
+            );
+        } catch (\Exception $ex) {
+            $err = $ex->getMessage();
+            log_message('error', $err);
+            return $this->response->setStatusCode(500)->setJSON(
+                [
+                    'success' => false,
+                    'message' => $err
+                ]
+            );
+        }
+    }
+
+    public function api_get_bank_detail()
+    {
+        $identity = $this->session->get('identity');
+        try {
+            $data['bank_detail'] = $this->investor_bank_detail_model->where('investor_id', $identity['investor_id'])->first();
+
+            return $this->response->setStatusCode(200)->setJSON(
+                [
+                    'success' => true,
+                    'message' => 'Success',
+                    'data' => $data
+                ]
+            );
+        } catch (\Exception $ex) {
+            $err = $ex->getMessage();
+            log_message('error', $err);
+            return $this->response->setStatusCode(500)->setJSON(
+                [
+                    'success' => false,
+                    'message' => $err
+                ]
+            );
+        }
+    }
+    public function api_get_nok()
+    {
+        $identity = $this->session->get('identity');
+        try {
+            $data['nok'] = $this->investor_nok_model->where('investor_id', $identity['investor_id'])->first();
+
+            return $this->response->setStatusCode(200)->setJSON(
+                [
+                    'success' => true,
+                    'message' => 'Success',
+                    'data' => $data
+                ]
+            );
         } catch (\Exception $ex) {
             $err = $ex->getMessage();
             log_message('error', $err);

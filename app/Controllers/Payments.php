@@ -19,6 +19,8 @@ class Payments extends BaseController
 
     // }
 
+    
+
     //=================API Functions=====================
     public function api_reg_payment_by_transfer()
     {

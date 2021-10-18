@@ -64,3 +64,6 @@ $routes->post('/investor/api-complete-profile', 'Investors::api_complete_profile
 $routes->post('/investor/api-update-profile', 'Investors::api_update_profile');
 $routes->post('/investor/api-update-nok', 'Investors::api_update_nok');
 $routes->post('/investor/api-update-bank-details', 'Investors::api_update_bank_details');
+$routes->get('/investor/api-get-profile', 'Investors::api_get_profile');
+$routes->get('/investor/api-get-bank-detail', 'Investors::api_get_bank_detail');
+$routes->get('/investor/api-get-nok', 'Investors::api_get_nok');

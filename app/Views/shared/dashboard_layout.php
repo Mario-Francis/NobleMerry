@@ -85,7 +85,7 @@
                             <h6 class="px-2  m-0 text-uppercase roboto" style="border-left:2px solid #fff;">ECO <br />Behavioural <br />Assessment PORTAL</h6>
                         </div> -->
                         <div class="py-3"></div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="<?= base_url('dashboard') ?>">
                             <i class="fas fa-tachometer-alt"></i> &nbsp; Dashboard
                         </a>
                         <?php if (isset($session->get('identity')['reg_completed']) && $session->get('identity')['reg_completed']): ?>

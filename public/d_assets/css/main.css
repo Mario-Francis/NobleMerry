@@ -69,8 +69,8 @@ p {
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #007099;
-  border-color: #007099;
+  background-color: var(--lgold);
+  border-color: var(--lgold);
 }
 
 .btn-primary:focus {
@@ -86,8 +86,8 @@ p {
 .btn-outline-primary:active,
 .btn-outline-primary:focus {
   color: #fff !important;
-  background-color: #007099 !important;
-  border-color: #007099 !important;
+  background-color: var(--lgold) !important;
+  border-color: var(--lgold) !important;
 }
 
 .btn-outline-primary.disabled,
@@ -105,7 +105,7 @@ p {
 .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #007099 !important;
+  background-color: var(--lgold) !important;
 }
 
 label {

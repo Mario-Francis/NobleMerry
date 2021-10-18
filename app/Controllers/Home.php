@@ -210,7 +210,7 @@ class Home extends BaseController
                                 'email' => $user['email'],
                                 'last_name' => $user['last_name'],
                                 'first_name' => $user['first_name'],
-                                'initial'=>$user['first_name'][0] . $user['last_name'][0] ,
+                                'initial'=>$user['first_name'][0] . $user['last_name'][0],
                                 'name' => $user['first_name'] . ' ' . $user['last_name'],
                                 'role_id' => $user['role_id'],
                                 'role' => $this->role_model->find($user['role_id'])['name']
