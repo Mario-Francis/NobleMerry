@@ -40,5 +40,9 @@ abstract class BaseModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
+    public function batchInsert($data){
+        $builder = $this->db->table($this->table);
+        $builder->insertBatch($data);
+    }
 
 }

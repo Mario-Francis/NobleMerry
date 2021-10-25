@@ -212,7 +212,8 @@ class Services extends BaseService
           return new PaymentsService(static::fee_model(), 
           static::investor_model(), 
           static::investor_payment_model(),
-          static::payment_log_model());
+          static::payment_log_model(),
+          static::account_model());
     }
     
 }

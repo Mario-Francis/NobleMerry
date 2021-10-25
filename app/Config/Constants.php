@@ -80,7 +80,9 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 //=============== custom ====================
 defined('FEE_REG')      || define('FEE_REG', 'REG_FEE');
+defined('FEE_REG_ID')      || define('FEE_REG_ID', 1);
 defined('FEE_CONTR')      || define('FEE_CONTR', 'CONTR_FEE');
+defined('FEE_CONTR_ID')      || define('FEE_CONTR_ID', 2);
 
 defined('PAY_METHOD_TRANSFER')      || define('PAY_METHOD_TRANSFER', 'TRANSFER');
 defined('PAY_METHOD_GATEWAY')      || define('PAY_METHOD_GATEWAY', 'GATEWAY');
@@ -99,3 +101,9 @@ defined('PAY_REVIEW_ACTION_DECLINE')      || define('PAY_REVIEW_ACTION_DECLINE',
 
 defined('PAY_MODE_SINGLE')      || define('PAY_MODE_SINGLE', 'SINGLE');
 defined('PAY_MODE_BATCH')      || define('PAY_MODE_BATCH', 'BATCH');
+defined('NAIRA') || define('NAIRA', '&#8358;');
+
+defined('ACCOUNT_STATUS_INACTIVE')      || define('ACCOUNT_STATUS_INACTIVE', 'INACTIVE');
+defined('ACCOUNT_STATUS_ACTIVE')      || define('ACCOUNT_STATUS_ACTIVE', 'ACTIVE');
+defined('ACCOUNT_STATUS_SUSPENDED')      || define('ACCOUNT_STATUS_SUSPENDED', 'SUSPENDED');
+defined('ACCOUNT_STATUS_CLOSED')      || define('ACCOUNT_STATUS_CLOSED', 'CLOSED');

@@ -67,3 +67,8 @@ $routes->post('/investor/api-update-bank-details', 'Investors::api_update_bank_d
 $routes->get('/investor/api-get-profile', 'Investors::api_get_profile');
 $routes->get('/investor/api-get-bank-detail', 'Investors::api_get_bank_detail');
 $routes->get('/investor/api-get-nok', 'Investors::api_get_nok');
+
+
+//================= ADMIN ======================
+$routes->get('/backoffice/payments/api-pending-single-dt', 'Payments::api_pending_single_dt');
+$routes->post('/backoffice/payments/api-confirm-payment-by-transfer/(:num)', 'Payments::api_confirm_payment_by_transfer/$1');
