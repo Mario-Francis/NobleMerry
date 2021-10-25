@@ -72,6 +72,8 @@ class BaseController extends Controller
         // services
         $this->mail_service = Services::mail_service();
         $this->payments_service = Services::payments_service();
+
+        $this->add_reg_status_to_session();
     }
 
     private function add_reg_status_to_session()

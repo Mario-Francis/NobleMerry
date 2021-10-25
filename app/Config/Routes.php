@@ -67,8 +67,20 @@ $routes->post('/investor/api-update-bank-details', 'Investors::api_update_bank_d
 $routes->get('/investor/api-get-profile', 'Investors::api_get_profile');
 $routes->get('/investor/api-get-bank-detail', 'Investors::api_get_bank_detail');
 $routes->get('/investor/api-get-nok', 'Investors::api_get_nok');
-
+$routes->get('/investor/accounts', 'Accounts::index');
+$routes->get('/investor/api-accounts-dt', 'Accounts::api_accounts_dt');
+$routes->get('/investor/accounts/(:num)/payments', 'Payments::account_payments/$1');
+$routes->get('/investor/accounts/(:num)/payments-dt', 'Payments::api_account_payments_dt/$1');
+$routes->get('/investor/payments/(:num)', 'Payments::api_get_payment/$1');
+$routes->post('/investor/payments/api_payment_by_transfer/(:num)', 'Payments::api_payment_by_transfer/$1');
 
 //================= ADMIN ======================
 $routes->get('/backoffice/payments/api-pending-single-dt', 'Payments::api_pending_single_dt');
+$routes->get('/backoffice/payments/api-investor-payments-dt/(:num)', 'Payments::api_investor_payments_dt/$1');
 $routes->post('/backoffice/payments/api-confirm-payment-by-transfer/(:num)', 'Payments::api_confirm_payment_by_transfer/$1');
+
+$routes->get('/backoffice/investors', 'Investors::index');
+$routes->get('/backoffice/investors/api-onboarding-dt', 'Investors::api_onboarding_dt');
+$routes->get('/backoffice/investors/api-onboarded-dt', 'Investors::api_onboarded_dt');
+$routes->get('/backoffice/investors/(:num)', 'Investors::investor/$1');
+$routes->get('/backoffice/investors/(:num)/api-accounts-dt', 'Accounts::api_investor_accounts_dt/$1');

@@ -65,7 +65,11 @@
                     <!-- <a class="dropdown-item" asp-controller="Logs" asp-action="ActivityLogs">Activity Logs</a>
                     <a class="dropdown-item" asp-controller="Logs" asp-action="ErrorLogs">Error Logs</a>
                      -->
-                     <a class="dropdown-item" href="<?= base_url('investor/profile') ?>">My Profile</a>
+                    <?php if ($session->get('identity')['role_id'] == 2) : ?>
+                        <a class="dropdown-item" href="<?= base_url('investor/profile') ?>">My Profile</a>
+                    <?php else : ?>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                    <?php endif ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">Logout</a>
                 </div>
@@ -88,8 +92,16 @@
                         <a class="nav-link" href="<?= base_url('dashboard') ?>">
                             <i class="fas fa-tachometer-alt"></i> &nbsp; Dashboard
                         </a>
-                        <?php if (isset($session->get('identity')['reg_completed']) && $session->get('identity')['reg_completed']): ?>
-
+                        <?php if ($session->get('identity')['role_id'] == 1) :  ?>
+                            <a class="nav-link" href="<?= base_url('backoffice/investors') ?>">
+                                    <i class="fas fa-users"></i> &nbsp; Investors
+                                </a>
+                        <?php else : ?>
+                            <?php if (isset($session->get('identity')['reg_completed']) && $session->get('identity')['reg_completed']) : ?>
+                                <a class="nav-link" href="<?= base_url('investor/accounts') ?>">
+                                    <i class="fas fa-university"></i> &nbsp; My Accounts
+                                </a>
+                            <?php endif ?>
                         <?php endif ?>
                         <!-- <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 

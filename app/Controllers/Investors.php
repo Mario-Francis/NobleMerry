@@ -2,22 +2,53 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
+
 class Investors extends BaseController
 {
-    // public function index()
-    // {
-    //     if(!$this->session->has('identity')){
-    //         return redirect()->to('auth/login');
-    //     }
+    // ========= for Admin ============
+    public function index()
+    {
+        if(!$this->session->has('identity')){
+            return redirect()->to('auth/login');
+        }
 
-    //     $data['title']='Dashboard';
-    //     if($this->session->has('identity') && $this->session->get('identity')['role_id']==1){
-    //         $this->admin_dashboard($data);
-    //     }else{
-    //         $this->investor_dashboard($data);
-    //     }
+        $data['title']='Investors';
+        $this->view('investors', $data);
+    }
 
-    // }
+    public function investor($id){
+       if(empty($id) || $id ==0){
+           throw PageNotFoundException::forPageNotFound('Investor not found');
+       }else{
+           $investor = $this->investor_model->find($id);
+           if($investor == null){
+            throw PageNotFoundException::forPageNotFound('Investor not found');
+           }else{
+            $data['investor'] = $investor;
+            $data['nok'] = $this->investor_nok_model->where('investor_id', $id)->first();
+            $data['bank_detail'] = $this->investor_bank_detail_model->where('investor_id', $id)->first();
+            if($data['bank_detail'] != null){
+                $data['bank_detail']['bank_name'] = $this->bank_model->find($data['bank_detail']['bank_id'])['name'];
+            }
+            $user = $this->user_model->find($investor['user_id']);
+            $data['user'] = [
+                'first_name'=>$user['first_name'],
+                'other_name'=>$user['other_name'],
+                'last_name'=>$user['last_name'],
+                'email'=>$user['email'],
+                'gender'=>$user['gender'],
+                'phone_number'=>$user['phone_number']
+            ];
+            //$data['accounts'] = $this->account_model->where('investor_id', $id)->findAll();
+
+            $data['title'] = 'Investor - ' . $user['first_name'] . ' ' . $user['last_name'];
+        $this->view('investor', $data);
+           }
+       }
+    }
+
+    // ========= end for admin =========================
 
     // for investors
     public function profile()
@@ -66,7 +97,10 @@ class Investors extends BaseController
         $this->view('complete_profile', $data);
     }
 
+
+
     //=================API Functions=====================
+
     public function api_complete_profile()
     {
         try {
@@ -401,6 +435,16 @@ class Investors extends BaseController
         }
     }
 
+    // ==================== for admin ===============================
+    public function api_onboarding_dt()
+    {
+        return $this->response->setStatusCode(200)->setJSON($this->investor_model->get_dt(false));
+    }
+
+    public function api_onboarded_dt()
+    {
+        return $this->response->setStatusCode(200)->setJSON($this->investor_model->get_dt(true));
+    }
 
     // ================private functions===========
 

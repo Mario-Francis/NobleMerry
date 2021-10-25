@@ -12,13 +12,14 @@ class InvestorPaymentModel extends BaseModel
         $this->table = 'investor_payments';
         $this->returnType = 'array';
         $this->allowedFields = [
-            'investor_id', 'account_id', 'fee_id', 'week_sno', 'due_date', 
-            'paid_date', 'amount', 'payment_method', 'status',  'reviewed_by_id', 
+            'investor_id', 'account_id', 'fee_id', 'week_sno', 'due_date',
+            'paid_date', 'amount', 'payment_method', 'status',  'reviewed_by_id',
             'review_date', 'created_by_id', 'updated_by_id', 'payment_mode', 'batch_payment_id', 'transaction_ref'
         ];
     }
 
-    public function get_pending_single_payment_dt(){
+    public function get_pending_single_payment_dt()
+    {
         $table = "(SELECT p.id, p.investor_id, p.account_id, p.fee_id, p.week_sno as week, p.amount, p.paid_date, p.created_date, CONCAT_WS(' ', u.first_name, u.last_name) as investor, a.number as account, f.name as fee
         FROM investor_payments p
         INNER JOIN investors i ON p.investor_id = i.id
@@ -41,7 +42,8 @@ class InvestorPaymentModel extends BaseModel
             array('db' => 'account_id', 'dt' => 2),
             array('db' => 'fee_id', 'dt' => 3),
             array('db' => 'week', 'dt' => 4),
-            array('db' => 'amount',
+            array(
+                'db' => 'amount',
                 'dt' => 5,
                 'formatter' => function ($d, $row) {
                     return NAIRA . number_format($d, 2);
@@ -68,10 +70,10 @@ class InvestorPaymentModel extends BaseModel
 
         // SQL server connection information
         $sql_details = [
-            'user'=> env('database.default.username'),
-            'pass'=> env('database.default.password'),
-            'db'=>env('database.default.database'),
-            'host'=>env('database.default.hostname')
+            'user' => env('database.default.username'),
+            'pass' => env('database.default.password'),
+            'db' => env('database.default.database'),
+            'host' => env('database.default.hostname')
         ];
         //print_r($sql_details);
 
@@ -81,9 +83,84 @@ class InvestorPaymentModel extends BaseModel
          */
 
         // require 'ssp.class.php';
-        
-        return SSPClass::simple($_GET, $sql_details, $table, $primaryKey, $columns);
 
+        return SSPClass::simple($_GET, $sql_details, $table, $primaryKey, $columns);
     }
-        
+
+    public function get_investor_payments_dt($investor_id, $account_id =0, $filter_by_account=false)
+    {
+        $table = "(SELECT p.id, a.number, f.name as fee, p.amount, p.week_sno as week, p.due_date, p.paid_date, p.payment_method, p.status, p.payment_mode, p.created_date 
+        FROM investor_payments p
+        INNER JOIN accounts a ON p.account_id = a.id
+        INNER JOIN fees f ON p.fee_id = f.id
+        WHERE p.investor_id = $investor_id" .
+        ($filter_by_account?" AND p.account_id = $account_id ":"") .
+        " ORDER BY p.id ASC) temp";
+
+        // Table's primary key
+        $primaryKey = 'id';
+
+        // Array of database columns which should be read and sent back to DataTables.
+        // The `db` parameter represents the column name in the database, while the `dt`
+        // parameter represents the DataTables column identifier. In this case simple
+        // indexes
+        $columns = array(
+            array('db' => 'id', 'dt' => 0),
+            array('db' => 'number', 'dt' => 1),
+            array('db' => 'fee', 'dt' => 2),
+            array(
+                'db' => 'amount',
+                'dt' => 3,
+                'formatter' => function ($d, $row) {
+                    return NAIRA . number_format($d, 2);
+                },
+            ),
+            array('db' => 'week', 'dt' => 4),
+            array(
+                'db' => 'due_date',
+                'dt' => 5,
+                'formatter' => function ($d, $row) {
+                    return date('jS M, Y', strtotime($d));
+                },
+            ),
+            array(
+                'db' => 'paid_date',
+                'dt' => 6,
+                'formatter' => function ($d, $row) {
+                    if ($d != null)
+                        return date('jS M, Y', strtotime($d));
+                    else
+                        return '';
+                },
+            ),
+            array('db' => 'payment_method', 'dt' => 7),
+            array('db' => 'status', 'dt' => 8),
+            array('db' => 'payment_mode', 'dt' => 9),
+            array(
+                'db' => 'created_date',
+                'dt' => 10,
+                'formatter' => function ($d, $row) {
+                    return date('jS M, Y', strtotime($d));
+                },
+            )
+        );
+
+        // SQL server connection information
+        $sql_details = [
+            'user' => env('database.default.username'),
+            'pass' => env('database.default.password'),
+            'db' => env('database.default.database'),
+            'host' => env('database.default.hostname')
+        ];
+        //print_r($sql_details);
+
+        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         * If you just want to use the basic configuration for DataTables with PHP
+         * server-side, there is no need to edit below this line.
+         */
+
+        // require 'ssp.class.php';
+
+        return SSPClass::simple($_GET, $sql_details, $table, $primaryKey, $columns);
+    }
 }
